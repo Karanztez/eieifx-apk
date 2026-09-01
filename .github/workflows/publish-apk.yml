@@ -1,0 +1,58 @@
+name: Publish APK
+
+on:
+  push:
+    paths:
+      - "incoming/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          if [ ! -f incoming/meta.json ]; then
+            echo "no incoming meta"
+            exit 0
+          fi
+          NAME="$(python3 -c 'import json; print(json.load(open("incoming/meta.json"))["version"])')"
+          TAG="$(python3 -c 'import json; print(json.load(open("incoming/meta.json"))["tag"])')"
+          APK="incoming/eieiFX-${NAME}.apk"
+          if [ ! -f "$APK" ]; then
+            echo "missing $APK"
+            exit 1
+          fi
+          NOTES="incoming/notes.md"
+          BODY="**eieiFX ${NAME}**"
+          if [ -f "$NOTES" ]; then BODY="$(cat "$NOTES")"; fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK" --clobber
+          else
+            gh release create "$TAG" "$APK" --title "eieiFX ${TAG}" --notes "$BODY" --latest
+          fi
+          mkdir -p "$(dirname latest.json)"
+          cat > latest.json <<EOF
+          {
+            "version": "${NAME}",
+            "tag": "${TAG}",
+            "apk": "https://github.com/Karanztez/eieifx-apk/releases/download/${TAG}/eieiFX-${NAME}.apk",
+            "html": "https://github.com/Karanztez/eieifx-apk/releases/tag/${TAG}"
+          }
+          EOF
+          rm -rf incoming
+          git config user.name "eieiFX bot"
+          git config user.email "eieifx-bot@users.noreply.github.com"
+          git add latest.json
+          git add -A incoming || true
+          git status
+          git commit -m "release ${NAME} [skip ci]" || echo "nothing to commit"
+          git push origin HEAD:main
