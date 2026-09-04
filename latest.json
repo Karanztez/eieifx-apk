@@ -1,6 +1,7 @@
 {
-  "version": "1.0.127",
-  "tag": "v1.0.127",
-  "apk": "https://github.com/Karanztez/eieifx-apk/releases/download/v1.0.127/eieiFX-1.0.127.apk",
-  "html": "https://github.com/Karanztez/eieifx-apk/releases/tag/v1.0.127"
+  "version": "1.0.128",
+  "tag": "v1.0.128",
+  "apk": "https://github.com/Karanztez/eieifx-apk/releases/download/v1.0.128/eieiFX-1.0.128.apk",
+  "exe": "https://github.com/Karanztez/eieifx-apk/releases/download/v1.0.128/eieiFX-1.0.128-windows.exe",
+  "html": "https://github.com/Karanztez/eieifx-apk/releases/tag/v1.0.128"
 }
