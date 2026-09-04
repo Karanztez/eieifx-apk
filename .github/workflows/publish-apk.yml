@@ -31,20 +31,34 @@ jobs:
             echo "missing $APK"
             exit 1
           fi
+          EXE="incoming/eieiFX-${NAME}-windows.exe"
           NOTES="incoming/notes.md"
           BODY="**eieiFX ${NAME}**"
           if [ -f "$NOTES" ]; then BODY="$(cat "$NOTES")"; fi
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "$APK" --clobber
-          else
-            gh release create "$TAG" "$APK" --title "eieiFX ${TAG}" --notes "$BODY" --latest
+
+          FILES=("$APK")
+          if [ -f "$EXE" ]; then
+            FILES+=("$EXE")
           fi
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "${FILES[@]}" --clobber
+          else
+            gh release create "$TAG" "${FILES[@]}" --title "eieiFX ${TAG}" --notes "$BODY" --latest
+          fi
+
+          EXE_URL=""
+          if [ -f "$EXE" ]; then
+            EXE_URL="https://github.com/Karanztez/eieifx-apk/releases/download/${TAG}/eieiFX-${NAME}-windows.exe"
+          fi
+
           mkdir -p "$(dirname latest.json)"
           cat > latest.json <<EOF
           {
             "version": "${NAME}",
             "tag": "${TAG}",
             "apk": "https://github.com/Karanztez/eieifx-apk/releases/download/${TAG}/eieiFX-${NAME}.apk",
+            "exe": "${EXE_URL}",
             "html": "https://github.com/Karanztez/eieifx-apk/releases/tag/${TAG}"
           }
           EOF

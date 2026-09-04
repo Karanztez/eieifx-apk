@@ -3,14 +3,13 @@
 แอปสร้างเอฟเฟกต์ 3D สำหรับ Minecraft / Blockbench  
 ส่งออกไฟล์ `.bbmodel` พร้อมเท็กซ์เจอร์
 
-## ดาวน์โหลด
-
-**[โหลด APK ล่าสุด](https://github.com/Karanztez/eieifx-apk/releases/latest)**
-
-1. กดลิงก์ด้านบน แล้วเลือกไฟล์ `.apk`
-2. อนุญาตติดตั้งจากแหล่งที่ไม่รู้จัก (ถ้าเครื่องถาม)
-3. เปิดแอปได้เลย
-
-เมื่อมีเวอร์ชันใหม่ แอปจะดาวน์โหลดและเปิดหน้าต่างติดตั้งเอง ไม่ต้องไปหาไฟล์ใน Downloads
-
-บอท GitHub จะปล่อย APK อัตโนมัติทุกครั้งที่ซอร์ส eieiFX ถูกบิลด์
+## ดาวน์โหลด (Download)
+ 
+ **[ดาวน์โหลดเวอร์ชันล่าสุด (Latest Release)](https://github.com/Karanztez/eieifx-apk/releases/latest)**
+ 
+ - 📱 **Android**: ดาวน์โหลดไฟล์ `eieiFX-<version>.apk` (อนุญาตติดตั้งจากแหล่งที่ไม่รู้จักถ้าเครื่องถาม)
+ - 💻 **Windows PC**: ดาวน์โหลดไฟล์ `eieiFX-<version>-windows.exe` (รันได้ทันที เป็น Standalone Portable โดยไม่ต้องติดตั้ง)
+ 
+ ---
+ 
+ บอท GitHub จะปล่อยเวอร์ชันอัปเดตอัตโนมัติทุกครั้งที่ซอร์ส eieiFX ถูกบิลด์
